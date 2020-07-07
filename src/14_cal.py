@@ -50,6 +50,8 @@ def get_calendar():
       if len(sys.argv) > 2:
         year = int(sys.argv[2])
       
+      
+      print("\n" + calendar.month_name[month] + ", " + str(year) + "\n")
       print(" S  M  T  W  T  F  S")
       print("--------------------")
 
@@ -57,10 +59,15 @@ def get_calendar():
       for row in cal:
         output = ""
         for day in row:
-          output += str(day) + " " if day > 9 else " " + str(day) + " "
+          if day == 0:
+            output += " - "
+          else:
+            output += str(day) + " " if day > 9 else " " + str(day) + " "
         print(output)
         
     except ValueError:
       print("Invalid argument(s) value(s). Format expected is \"14_cal.py [month] [year]\" where [month] and [year] are integer values")
+    except IndexError:
+      print("Invalid date passed")
 
 get_calendar()
