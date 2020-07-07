@@ -30,3 +30,37 @@ it should use today’s date to get the month and year.
 import sys
 import calendar
 from datetime import datetime
+
+# get arguments
+# no arguments -> print calendar for current month (datetime)
+# 1 argument = month. Return that month for the current year
+# 2 arguments = month and year
+# elif print statement with the format expected and exit program
+def get_calendar():
+
+  if len(sys.argv) > 3:
+    print("Format expected is \"14_cal.py [month] [year]\" where [month] and [year] are integer values")
+  else:
+    try:
+      date = datetime.now()
+      month = date.month
+      year = date.year
+      if len(sys.argv) > 1:
+        month = int(sys.argv[1])
+      if len(sys.argv) > 2:
+        year = int(sys.argv[2])
+      
+      print(" S  M  T  W  T  F  S")
+      print("--------------------")
+
+      cal = calendar.monthcalendar(year, month)
+      for row in cal:
+        output = ""
+        for day in row:
+          output += str(day) + " " if day > 9 else " " + str(day) + " "
+        print(output)
+        
+    except ValueError:
+      print("Invalid argument(s) value(s). Format expected is \"14_cal.py [month] [year]\" where [month] and [year] are integer values")
+
+get_calendar()
